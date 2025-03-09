@@ -1,4 +1,4 @@
-from jugador import jugador
+from src.tc.jugador import jugador
 
 class SistemaUsuarios:
     def __init__(self):

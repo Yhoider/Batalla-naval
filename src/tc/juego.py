@@ -1,4 +1,4 @@
-from campo import Campo
+from src.tc.campo import Campo
 
 class juego ():
     def __init__(self,numero:int):
