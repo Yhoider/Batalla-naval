@@ -29,8 +29,3 @@ class SistemaUsuarios:
             print("Usuario no encontrado.")
 
 
-prueba = SistemaUsuarios ()
-prueba.crear_cuenta("Hr.wells", "Camilo4515.")
-prueba.iniciar_sesion("Hr.wells","Camilo4515.")
-prueba.cambiar_password("Hr.wells","HR.WELLS")
-
