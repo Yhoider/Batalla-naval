@@ -1,5 +1,4 @@
 from campo import Campo
-from SistemaUsuarios import SistemaUsuarios
 
 class juego ():
     def __init__(self,numero:int):

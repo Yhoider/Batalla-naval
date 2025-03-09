@@ -14,6 +14,4 @@ class Campo:
             self.matriz.append(self.fila)   
         return self.matriz                                                               
     
-    
-    
 

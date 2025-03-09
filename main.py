@@ -1,7 +1,5 @@
-from campo import Campo
-from juego import juego
-from jugador import jugador
-from SistemaUsuarios import SistemaUsuarios
+from src.tc.juego import juego
+from src.tc.SistemaUsuarios import SistemaUsuarios
 
 
 if __name__ == "__main__":
