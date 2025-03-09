@@ -1,6 +1,6 @@
 import random as rd
 
-class campo:
+class Campo:
     def __init__(self, numero:int):
         self.numero = numero
         self.matriz:list[list] = []
@@ -17,6 +17,3 @@ class campo:
     
     
 
-prueba = campo(5)
-prueba.generar_campo()
-print(prueba.matriz)

@@ -1,23 +1,28 @@
-from campo import campo
-from jugador import jugador 
+from campo import Campo
+from SistemaUsuarios import SistemaUsuarios
 
-class juego (jugador):
+class juego ():
     def __init__(self,numero:int):
         self.numero = numero
         self.puntaje = 0
-        self.matriz = campo.matriz 
+        self.user = " "
+        self.campo = Campo(self.numero)
     
-    def inicializar_campo (self):
-        self.Campo = campo(self.numero)
-        self.generar_campo = self.Campo.generar_campo ()
+    def iniciar_juego(self):
+        self.campo.generar_campo()
+        print("Campo generado:\n", self.campo.matriz)
         
     def disparar(self):
         for i in range (self.numero):
-            fila = (int(input("Intoduce la coordenada del barco a atarcar (fila:)"))) - 1 
-            columna = (int(input("Intoduce la coordenada del barco a atarcar (columna:)"))) - 1
-            if self.Campo.matriz == "🚤" or self.Campo.matriz[fila][columna]== "🛥️":
-                self.Campo.matriz [fila] [columna] = "_"
+            fila = int(input("Introduce la coordenada del barco a atacar (fila): ")) - 1 
+            columna = int(input("Introduce la coordenada del barco a atacar (columna): ")) - 1
+            
+            if self.campo.matriz[fila][columna] == "🚤" or self.campo.matriz[fila][columna] == "🛥️":
+                self.campo.matriz[fila][columna] = "_"
                 self.puntaje += 1
+                print("¡Tiro exitoso! Puntaje actual:", self.puntaje)
+            else:
+                print("Fallaste. Intenta de nuevo.")
     
     def tabla_puntaje (self) -> dict:
         tabla = {
@@ -26,6 +31,7 @@ class juego (jugador):
         }
         return tabla    
             
-prueba = juego (7)
-prueba.inicializar_campo ()
-prueba.disparar()
+if __name__ == "__main__":
+    Juego = juego(5) 
+    Juego.iniciar_juego()
+    Juego.disparar()
