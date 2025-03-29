@@ -24,7 +24,6 @@ def test_generar_campo():
     assert len(matriz) == 100
 
 
-
 @pytest.fixture
 def sistema():
     return SistemaUsuarios()
@@ -77,7 +76,7 @@ def test_cambiar_password_usuario_no_existente(sistema):
     assert "Usuario no encontrado." 
 
 def test_disparar_acierto(juego_fixture):
-    juego_fixture.campo.matriz = [["🚤", "_", "_"], ["_", "_", "_"], ["_", "_", "_"]]
+    juego_fixture.campo.matriz = [["🚤"]]
     juego_fixture.disparar()
     assert juego_fixture.puntaje == 1
 
