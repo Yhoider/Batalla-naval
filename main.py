@@ -22,7 +22,9 @@ if __name__ == "__main__":
         usuario = sistema_usuarios.iniciar_sesion(confirmar_user, confirmar_password)
 
         if usuario:
-            Juego = juego(5, user)  
+            fila = int(input("Ingresa el numero de filas del campo:"))
+            columna = int(input("Inresa el nuemro de columna del campo:"))
+            Juego = juego(fila, columna, user)  
             Juego.user = usuario
             Juego.iniciar_juego()
             Juego.disparar()

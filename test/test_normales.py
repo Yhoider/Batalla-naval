@@ -9,17 +9,17 @@ from src.tc.SistemaUsuarios import SistemaUsuarios
 
 
 def test_generar_campo():
-    campo = Campo(5)
+    campo = Campo(5,5)
     matriz = campo.generar_campo()
     assert len(matriz) == 5
 
 def test_generar_campo():
-    campo = Campo(10)
+    campo = Campo(10,6)
     matriz = campo.generar_campo()
     assert len(matriz) == 10
 
 def test_generar_campo():
-    campo = Campo(100)
+    campo = Campo(100,100)
     matriz = campo.generar_campo()
     assert len(matriz) == 100
 
