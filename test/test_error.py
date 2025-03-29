@@ -33,3 +33,18 @@ def test_iniciar_sesion_con_contrasena_incorrecta():
     assert usuario is None
     assert "Credenciales incorrectas." 
 
+def test_crear_cuenta_error_3():
+    sistema = SistemaUsuarios()
+    assert sistema.crear_cuenta("usuario9", "") is None 
+
+def test_iniciar_juego_error():
+    with pytest.raises(ValueError):
+        juego(-1, "usuario_error")  # Suponiendo que manejes errores en el constructor
+
+def test_disparar_error(juego_fixture, monkeypatch):
+    juego_fixture.iniciar_juego()
+    
+    monkeypatch.setattr('builtins.input', lambda _: '10')  # Fuera del rango
+    
+    with pytest.raises(IndexError):
+        juego_fixture.disparar()

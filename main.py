@@ -6,19 +6,27 @@ from src.tc.SistemaUsuarios import SistemaUsuarios
 
 if __name__ == "__main__":
 
+    user = input("Crear usuario: ")
+    password = input("Crear contraseña: ")
     sistema_usuarios = SistemaUsuarios()
-    sistema_usuarios.crear_cuenta("Hr.wells", "password")
+    sistema_usuarios.crear_cuenta(user, password)
+    cambio = str(input("¿Quieres cambiar tu Contraseña? (si o no)")).lower ()
+    if cambio == "si":
+        new_password = str(input("Ingresa tu nueva contraseña:"))
+        sistema_usuarios.cambiar_password(user,new_password)
 
     while True:
-        user_input = input("Nombre de usuario: ")
-        password_input = input("Contraseña: ")
-        usuario = sistema_usuarios.iniciar_sesion(user_input, password_input)
+        confirmar_user = input("Nombre de usuario: ")
+        confirmar_password = input("Contraseña: ")
+
+        usuario = sistema_usuarios.iniciar_sesion(confirmar_user, confirmar_password)
 
         if usuario:
-            Juego = juego(5)  
+            Juego = juego(5, user)  
             Juego.user = usuario
             Juego.iniciar_juego()
             Juego.disparar()
+            
             break  
         else:
             print("Por favor, intenta de nuevo.")
