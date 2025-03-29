@@ -28,7 +28,6 @@ if __name__ == "__main__":
             Juego.user = usuario
             Juego.iniciar_juego()
             Juego.disparar()
-            
             break  
         else:
             print("Por favor, intenta de nuevo.")
