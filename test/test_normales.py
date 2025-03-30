@@ -99,7 +99,6 @@ def test_juego_disparo_acierto(monkeypatch):
     inputs = iter([1, 1])  # Disparo a (0,0)
     monkeypatch.setattr('builtins.input', lambda _: next(inputs))
     partida.disparar()
-    assert partida.puntaje == 1
     assert partida.campo.matriz[0][0] == "_"
 
 def test_juego_disparo_fallo(monkeypatch):
@@ -125,3 +124,32 @@ def test_juego_todos_hundidos(monkeypatch, capsys):
     partida.disparar()
     captured = capsys.readouterr()
     assert "¡Todos los barcos han sido hundidos! Fin del juego." in captured.out
+
+
+def test_puntaje_acierto(monkeypatch):
+    partida = juego(3, 3, "Player2")
+    partida.campo.matriz = [["🚤", "_", "_"],
+                             ["_", "_", "_"],
+                             ["_", "_", "_"]]
+    
+    inputs = iter([1, 1])  
+    monkeypatch.setattr('builtins.input', lambda _: next(inputs))
+    partida.disparar()
+    assert partida.puntaje == 1
+
+def test_puntaje_acierto(monkeypatch):
+    partida = juego(3, 3, "Player2")
+    partida.campo.matriz = [["_", "_", "_"],
+                             ["_", "_", "_"],
+                             ["_", "_", "🚤"]]
+    
+    inputs = iter([3, 3])  
+    monkeypatch.setattr('builtins.input', lambda _: next(inputs))
+    partida.disparar()
+    assert partida.puntaje == 1
+
+def test_puntaje_inicial():
+    
+    juego_prueba = juego(5, 5, "usuario_prueba")
+    assert juego_prueba.puntaje == 0 
+
