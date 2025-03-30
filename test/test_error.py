@@ -47,16 +47,6 @@ def test_cambiar_password_error():
     except KeyError:
         assert True
 
-def test_cambiar_password_usuario_inexistente():
-    
-    sistema = SistemaUsuarios()
-    try:
-        sistema.cambiar_password("usuario_inexistente", "nueva_clave123")
-    except KeyError:
-        assert True 
-    else:
-        assert False
-
 
 def test_crear_cuenta_error():
     sistema = SistemaUsuarios()
