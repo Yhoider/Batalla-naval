@@ -22,6 +22,8 @@ class Jugador:
     def __init__(self, user: str, password: str):
         self.user = user
         self.password = password
+        self.max_puntuacion = 0
+        self.cuenta_creada = False
 
 class SistemaUsuarios:
     def __init__(self):
@@ -32,11 +34,13 @@ class SistemaUsuarios:
             return False
         else:
             self.usuarios[user] = Jugador(user, password)
+            self.usuarios[user].cuenta_creada = True
             return True
 
     def iniciar_sesion(self, user: str, password: str):
         usuario = self.usuarios.get(user)
         if usuario is not None and usuario.password == password:
+            usuario.max_puntuacion = 0  # Restablecer el contador al iniciar sesión
             return usuario
         return None
 
@@ -44,7 +48,7 @@ class App(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title("Batalla Naval")
-        self.geometry("600x500")
+        self.geometry("800x600")
 
         self.sistema_usuarios = SistemaUsuarios()
         self.tab_control = ttk.Notebook(self)
@@ -52,16 +56,19 @@ class App(tk.Tk):
         self.tab_crear_cuenta = ttk.Frame(self.tab_control)
         self.tab_iniciar_sesion = ttk.Frame(self.tab_control)
         self.tab_jugar = ttk.Frame(self.tab_control)
+        self.tab_usuarios = ttk.Frame(self.tab_control)
 
         self.tab_control.add(self.tab_crear_cuenta, text='Crear Cuenta')
         self.tab_control.add(self.tab_iniciar_sesion, text='Iniciar Sesión')
         self.tab_control.add(self.tab_jugar, text='Jugar')
+        self.tab_control.add(self.tab_usuarios, text='Usuarios')
 
         self.tab_control.pack(expand=1, fill='both')
 
         self.crear_cuenta_ui()
         self.iniciar_sesion_ui()
         self.jugar_ui()
+        self.usuarios_ui()
 
     def crear_cuenta_ui(self):
         tk.Label(self.tab_crear_cuenta, text="Usuario:").pack(pady=5)
@@ -102,6 +109,12 @@ class App(tk.Tk):
         self.puntaje = 0
         self.campo = None
 
+    def usuarios_ui(self):
+        self.usuarios_listbox = tk.Listbox(self.tab_usuarios, width=50)
+        self.usuarios_listbox.pack(pady=20)
+
+        tk.Button(self.tab_usuarios, text="Actualizar", command=self.actualizar_usuarios).pack(pady=10)
+
     def crear_cuenta(self):
         user = self.usuario_entry.get()
         password = self.contraseña_entry.get()
@@ -124,6 +137,8 @@ class App(tk.Tk):
             self.columna_entry.delete(0, tk.END)
             self.campo = Campo(5, 5)  # Puedes ajustar el tamaño del campo
             self.campo.generar_campo()
+            self.puntaje = 0  # Restablecer el contador al iniciar sesión
+            self.puntaje_label.config(text=f"Puntaje: {self.puntaje}")
             self.tab_control.select(self.tab_jugar)
         else:
             messagebox.showerror("Error", "Credenciales incorrectas.")
@@ -141,6 +156,9 @@ class App(tk.Tk):
                 if self.campo.matriz[fila][columna] in ["🚤", "🛥️"]:
                     self.campo.matriz[fila][columna] = "_"
                     self.puntaje += 1
+                    self.sistema_usuarios.usuarios[self.usuario_entry_login.get()].max_puntuacion = max(
+                        self.sistema_usuarios.usuarios[self.usuario_entry_login.get()].max_puntuacion, self.puntaje
+                    )
                     messagebox.showinfo("Éxito", "¡Barco hundido!")
                 else:
                     messagebox.showinfo("Fallaste", "No hay barco en esa coordenada.")
@@ -150,6 +168,14 @@ class App(tk.Tk):
             messagebox.showerror("Error", "Por favor, ingresa números válidos.")
 
         self.puntaje_label.config(text=f"Puntaje: {self.puntaje}")
+
+    def actualizar_usuarios(self):
+        self.usuarios_listbox.delete(0, tk.END)
+        for usuario in self.sistema_usuarios.usuarios.values():
+            if usuario.cuenta_creada:
+                self.usuarios_listbox.insert(tk.END, f"{usuario.user} - Máxima puntuación: {usuario.max_puntuacion}")
+            else:
+                self.usuarios_listbox.insert(tk.END, f"{usuario.user} - Máxima puntuación: 0")
 
 if __name__ == "__main__":
     app = App()
