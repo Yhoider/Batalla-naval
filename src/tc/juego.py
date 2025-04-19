@@ -1,6 +1,6 @@
 from src.tc.campo import Campo
 
-class juego ():
+class Juego ():
     def __init__(self, fila:int, columna:int, user:str):
         self.fila = fila
         self.columna = columna
@@ -33,4 +33,6 @@ class juego ():
         print ("Juegos terminado.")
         tabla = (f"user:{self.user}  puntaje: {self.puntaje}")
         print (tabla)    
+
+
             

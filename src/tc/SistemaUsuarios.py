@@ -1,4 +1,4 @@
-from src.tc.jugador import jugador
+from src.tc.Jugador import Jugador
 
 class SistemaUsuarios:
     def __init__(self):
@@ -8,7 +8,7 @@ class SistemaUsuarios:
         if user in self.usuarios:
             print("El usuario ya existe.")
         else:
-            self.usuarios[user] = jugador(user, password)
+            self.usuarios[user] = Jugador(user, password)
             print("Cuenta creada exitosamente.")
 
     def iniciar_sesion(self, user: str, password: str):
@@ -27,5 +27,6 @@ class SistemaUsuarios:
             print("Contraseña cambiada exitosamente.")
         else:
             print("Usuario no encontrado.")
+
 
 

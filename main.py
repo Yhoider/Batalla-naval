@@ -1,6 +1,6 @@
 from src.tc.campo import Campo
-from src.tc.jugador import jugador
-from src.tc.juego import juego
+from src.tc.Jugador import Jugador
+from src.tc.Juego import Juego
 from src.tc.SistemaUsuarios import SistemaUsuarios
 
 
@@ -24,10 +24,10 @@ if __name__ == "__main__":
         if usuario:
             fila = int(input("Ingresa el numero de filas del campo:"))
             columna = int(input("Inresa el nuemro de columna del campo:"))
-            Juego = juego(fila, columna, user)  
-            Juego.user = usuario
-            Juego.iniciar_juego()
-            Juego.disparar()
+            juego = Juego(fila, columna, user)  
+            juego.user = usuario
+            juego.iniciar_juego()
+            juego.disparar()
             break  
         else:
             print("Por favor, intenta de nuevo.")
