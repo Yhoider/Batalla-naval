@@ -1,7 +1,7 @@
 import pytest
 from unittest.mock import patch
 from src.tc.campo import Campo
-from src.tc.juego import juego 
+from src.tc.Juego import Juego 
 from src.tc.SistemaUsuarios import SistemaUsuarios
 
 
@@ -77,7 +77,7 @@ def test_campo_generacion():
     assert all(celda in ["_", "🚤", "🛥️"] for fila in matriz for celda in fila)
 
 def test_juego_inicializacion():
-    partida = juego(3, 3, "Player1")
+    partida = Juego(3, 3, "Player1")
     assert partida.fila == 3
     assert partida.columna == 3
     assert partida.puntaje == 0
@@ -85,13 +85,13 @@ def test_juego_inicializacion():
     
 
 def test_juego_iniciar():
-    partida = juego(4, 4, "TestUser")
+    partida = Juego(4, 4, "TestUser")
     partida.iniciar_juego()
     assert len(partida.campo.matriz) == 4
     assert all(len(fila) == 4 for fila in partida.campo.matriz)
 
 def test_juego_disparo_acierto(monkeypatch):
-    partida = juego(3, 3, "Player2")
+    partida = Juego(3, 3, "Player2")
     partida.campo.matriz = [["🚤", "_", "_"],
                              ["_", "_", "_"],
                              ["_", "_", "_"]]
@@ -102,7 +102,7 @@ def test_juego_disparo_acierto(monkeypatch):
     assert partida.campo.matriz[0][0] == "_"
 
 def test_juego_disparo_fallo(monkeypatch):
-    partida = juego(3, 3, "Player3")
+    partida = Juego(3, 3, "Player3")
     partida.campo.matriz = [["_", "_", "_"],
                              ["_", "_", "_"],
                              ["_", "_", "_"]]
@@ -115,7 +115,7 @@ def test_juego_disparo_fallo(monkeypatch):
 
 
 def test_juego_todos_hundidos(monkeypatch, capsys):
-    partida = juego(2, 2, "Player5")
+    partida = Juego(2, 2, "Player5")
     partida.campo.matriz = [["🚤", "🛥️"],
                              ["🚤", "🛥️"]]
     
@@ -127,7 +127,7 @@ def test_juego_todos_hundidos(monkeypatch, capsys):
 
 
 def test_puntaje_acierto(monkeypatch):
-    partida = juego(3, 3, "Player2")
+    partida = Juego(3, 3, "Player2")
     partida.campo.matriz = [["🚤", "_", "_"],
                              ["_", "_", "_"],
                              ["_", "_", "_"]]
@@ -138,7 +138,7 @@ def test_puntaje_acierto(monkeypatch):
     assert partida.puntaje == 1
 
 def test_puntaje_acierto(monkeypatch):
-    partida = juego(3, 3, "Player2")
+    partida = Juego(3, 3, "Player2")
     partida.campo.matriz = [["_", "_", "_"],
                              ["_", "_", "_"],
                              ["_", "_", "🚤"]]
@@ -150,6 +150,6 @@ def test_puntaje_acierto(monkeypatch):
 
 def test_puntaje_inicial():
     
-    juego_prueba = juego(5, 5, "usuario_prueba")
+    juego_prueba = Juego(5, 5, "usuario_prueba")
     assert juego_prueba.puntaje == 0 
 

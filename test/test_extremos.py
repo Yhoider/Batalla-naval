@@ -2,7 +2,7 @@ import pytest
 
 from src.tc.campo import Campo
 from src.tc.SistemaUsuarios import SistemaUsuarios
-from src.tc.juego import juego
+from src.tc.Juego import Juego
 
 def test_campo_minimo():
     campo = Campo(1,1)
@@ -55,7 +55,7 @@ def test_cambiar_password_extremo_3(sistema):
     assert sistema.iniciar_sesion("usuario", ".") is not None
 
 def test_puntaje_extremo():
-    juego_prueba = juego(100, 100, "usuario_extremo")
+    juego_prueba = Juego(100, 100, "usuario_extremo")
     juego_prueba.iniciar_juego()
     assert juego_prueba.puntaje == 0
 

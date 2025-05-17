@@ -1,7 +1,7 @@
 import pytest
 
 from src.tc.SistemaUsuarios import SistemaUsuarios
-from src.tc.juego import juego
+from src.tc.Juego import Juego
 from src.tc.campo import Campo
 
 
@@ -55,7 +55,7 @@ def test_crear_cuenta_error():
     assert sistema.usuarios["usuario_error"].password == "123" 
 
 def test_disparar_error():
-    juego_prueba = juego(5, 5, "usuario_error")
+    juego_prueba = Juego(5, 5, "usuario_error")
     juego_prueba.iniciar_juego()
     try:
         juego_prueba.campo.matriz[6][6]  
@@ -65,7 +65,7 @@ def test_disparar_error():
 
 
 def test_disparar_coordenadas_inválidas():
-    juego_prueba = juego(5, 5, "usuario_error")
+    juego_prueba = Juego(5, 5, "usuario_error")
     juego_prueba.iniciar_juego()
     try:
         juego_prueba.campo.matriz[-1][-1]  
@@ -81,7 +81,7 @@ def test_crear_campo_sin_dimensiones():
         assert True
 
 def test_visualizacion_puntaje_error():
-    juego_prueba = juego(0, 0, "usuario_error_puntaje")
+    juego_prueba = Juego(0, 0, "usuario_error_puntaje")
     try:
         juego_prueba.iniciar_juego()
         assert juego_prueba.puntaje == 0  
@@ -105,7 +105,7 @@ def test_generar_campo_sin_dimensiones():
 
 def test_iniciar_juego_sin_campo():
     try:
-        juego_prueba = juego(0, 0, "usuario_error")
+        juego_prueba = Juego(0, 0, "usuario_error")
         juego_prueba.iniciar_juego()  
     except ValueError:
         assert True  
@@ -114,7 +114,7 @@ def test_iniciar_juego_campo_corrupto():
     try:
         campo = Campo(3, 3)
         campo.matriz = None  
-        juego_prueba = juego(3, 3, "usuario_corrupto")
+        juego_prueba = Juego(3, 3, "usuario_corrupto")
         juego_prueba.campo = campo
         juego_prueba.iniciar_juego()
     except AttributeError:
