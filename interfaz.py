@@ -63,6 +63,9 @@ class App(tk.Tk):
         
 
     def crear_cuenta_ui(self):
+        """
+            Define los elementos gráficos (entradas y botones) para la creación de cuenta..
+        """
         tk.Label(self.tab_crear_cuenta, text="Usuario:").pack(pady=5)
         self.usuario_entry = tk.Entry(self.tab_crear_cuenta)
         self.usuario_entry.pack(pady=5)
@@ -74,6 +77,9 @@ class App(tk.Tk):
         tk.Button(self.tab_crear_cuenta, text="Crear", command=self.crear_cuenta).pack(pady=20)
 
     def iniciar_sesion_ui(self):
+        """
+        Configura la interfaz para iniciar sesión
+        """
         tk.Label(self.tab_iniciar_sesion, text="Usuario:").pack(pady=5)
         self.usuario_entry_login = tk.Entry(self.tab_iniciar_sesion)
         self.usuario_entry_login.pack(pady=5)
@@ -85,6 +91,9 @@ class App(tk.Tk):
         tk.Button(self.tab_iniciar_sesion, text="Iniciar", command=self.iniciar_sesion).pack(pady=20)
 
     def cambiar_contraseña_ui(self):
+        """
+        Define los elementos gráficos para cambiar la contraseña.
+        """
         tk.Label(self.tab_cambiar_contrasena, text="Usuario:").pack(pady=5)
         self.usuario_entry_cambiar = tk.Entry(self.tab_cambiar_contrasena)
         self.usuario_entry_cambiar.pack(pady=5)
@@ -107,6 +116,9 @@ class App(tk.Tk):
             messagebox.showerror("Error", "El usuario no existe.")
 
     def jugar_ui(self):
+        """
+        Define los elementos gráficos para la sección de juego, donde se ingresan las coordenadas para disparar.
+        """
         tk.Label(self.tab_jugar, text="Coordenadas:").pack(pady=5)
         tk.Label(self.tab_jugar, text="Fila:").pack(pady=5)
         self.fila_entry = tk.Entry(self.tab_jugar)
@@ -124,6 +136,9 @@ class App(tk.Tk):
         self.campo = None
 
     def usuarios_ui(self):
+        """
+        Define los elementos gráficos para mostrar y actualizar la lista de usuarios y sus puntuaciones.
+        """
         self.usuarios_listbox = tk.Listbox(self.tab_usuarios, width=50)
         self.usuarios_listbox.pack(pady=20)
 
@@ -131,6 +146,9 @@ class App(tk.Tk):
 
 
     def crear_cuenta(self):
+        """
+         Llama al método crear_cuenta de SistemaUsuarios y muestra un mensaje emergente con el resultado.
+        """
         user = self.usuario_entry.get()
         password = self.contraseña_entry.get()
 
@@ -142,6 +160,11 @@ class App(tk.Tk):
             messagebox.showerror("Error", "El usuario ya existe.")
 
     def iniciar_sesion(self):
+        """
+        Llama al método iniciar_sesion de SistemaUsuarios, inicia el juego si es exitoso y muestra un mensaje emergente con el resultado.
+
+
+        """
         user = self.usuario_entry_login.get()
         password = self.contraseña_entry_login.get()
         usuario = self.sistema_usuarios.iniciar_sesion(user, password)
@@ -159,6 +182,11 @@ class App(tk.Tk):
             messagebox.showerror("Error", "Credenciales incorrectas.")
 
     def disparar(self):
+        """
+        Verifica si el jugador está logueado y si las coordenadas ingresadas son válidas para disparar a un barco. Si un barco es hundido, aumenta el puntaje y muestra un mensaje de éxito.
+
+
+        """
         if self.campo is None:
             messagebox.showwarning("Advertencia", "Primero inicia sesión.")
             return
@@ -185,6 +213,10 @@ class App(tk.Tk):
         self.puntaje_label.config(text=f"Puntaje: {self.puntaje}")
 
     def actualizar_usuarios(self):
+        """
+        Actualiza la lista de usuarios mostrando su nombre y máxima puntuación.
+        """
+         
         self.usuarios_listbox.delete(0, tk.END)
         for usuario in self.sistema_usuarios.usuarios.values():
             if usuario.cuenta_creada:
