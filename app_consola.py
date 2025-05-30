@@ -1,5 +1,3 @@
-from src.tc.campo import Campo
-from src.tc.Jugador import Jugador
 from src.tc.Juego import Juego
 from src.tc.SistemaUsuarios import SistemaUsuarios
 # Cambiar el nombre de los modulos juego a Juego y jugador a Jugador, git no esta haciendo los cambios
